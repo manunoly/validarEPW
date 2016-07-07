@@ -2,7 +2,7 @@ __author__ = 'manuel'
 import os
 
 '''
-Validar que esten 4 ficheros por cada clima.
+Validar que esten 4 ficheros por cada clima para el DB
 
 1 leer nombres de ficheros de 1 dir
 1.1 picar por el punto para evitar extension
