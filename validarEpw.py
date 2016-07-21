@@ -9,8 +9,6 @@ dirFicheros = "/home/manuel/andreitaTest/epw03-07/epw0706"
 sheet = book.sheet_by_index(0)
 
 def buscarOtraColumna(textBuscar):
-
-    print textBuscar
     return True
 
 datosExcel = []
@@ -45,7 +43,8 @@ for file in dirs:
         if not Igual:
             ficherosNoCoinciden.append(datosFichero)
     else:
-        print 'Extension No valida '
+        print 'Extension No valida'
+
 for datosFichero in ficherosNoCoinciden:
     Igual = False
     for linea in datosExcel:
