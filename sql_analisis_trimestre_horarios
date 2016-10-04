@@ -1,0 +1,67 @@
+select `p`.`nombre` AS `parroquia_nombre`,`p`.`latitud` AS `latitud`,`p`.`longitud` AS `longitud`,`p`.`altura` AS `altura`,AVG (`c`.`temp_ext_bulbo_seco_orig`) AS `promedio_temp_ext`, AVG(`c`.`temp_operativa_orig`) AS `promedio_temp_op`,
+AVG(`c`.`humedad_relativa_orig`) AS `promedio_humedad_rel`,
+EXTRACT( QUARTER FROM fecha.fecha ) AS trimestre,
+case SUBSTRING( h.hora, 1,2 )
+		when  '00' then 'Noche'
+		when  '01' then 'Noche'
+		when  '02' then 'Noche'
+		when  '03' then 'Noche'
+		when  '04' then 'Noche'
+		when  '05' then 'Noche'
+		when  '06' then 'Noche'
+		when  '07' then 'Día'
+		when  '08' then 'Día'
+		when  '09' then 'Día'
+		when  '10' then 'Día'
+		when  '11' then 'Día'
+		when  '12' then 'Día'
+		when  '13' then 'Día'
+		when  '14' then 'Día'
+		when  '15' then 'Día'
+		when  '16' then 'Día'
+		when  '17' then 'Día'
+		when  '18' then 'Día'
+		when  '19' then 'Noche'
+		when  '20' then 'Noche'
+		when  '21' then 'Noche'
+		when  '22' then 'Noche'
+		when  '23' then 'Noche'
+    end as horariodia
+
+from (((`confort` `c` join `parroquia` `p` on((`p`.`id` = `c`.`parroquia_id`))) join `horarios` `h` on((`h`.`id` = `c`.`horarios_id`))) join `cumple_condicion` `cc` on((`cc`.`id` = `c`.`cumple_condicion`))) join fecha on (fecha.id = c.fecha_id)
+group by horariodia, trimestre, altura, longitud, latitud, parroquia_nombre
+
+select  SUBSTRING( hora, 1,2 ) as dia, case SUBSTRING( hora, 1,2 )
+		when  '00' then 'Noche'
+		when  '01' then 'Noche'
+		when  '02' then 'Noche'
+		when  '03' then 'Noche'
+		when  '04' then 'Noche'
+		when  '05' then 'Noche'
+		when  '06' then 'Noche'
+		when  '07' then 'Día'
+		when  '08' then 'Día'
+		when  '09' then 'Día'
+		when  '10' then 'Día'
+		when  '11' then 'Día'
+		when  '12' then 'Día'
+		when  '13' then 'Día'
+		when  '14' then 'Día'
+		when  '15' then 'Día'
+		when  '16' then 'Día'
+		when  '17' then 'Día'
+		when  '18' then 'Día'
+		when  '19' then 'Noche'
+		when  '20' then 'Noche'
+		when  '21' then 'Noche'
+		when  '22' then 'Noche'
+		when  '23' then 'Noche'
+    end as horariodia
+from
+    horarios inner join confort on (horarios.id = confort.horarios_id)
+group by horariodia, dia
+
+SELECT fecha, EXTRACT( QUARTER FROM fecha.fecha ) AS trimestre
+FROM fecha
+INNER JOIN confort ON ( fecha.id = confort.fecha_id ) 
+GROUP BY trimestre, fecha

@@ -64,6 +64,7 @@ with open('datosAndresCsv.csv', 'rb') as csvfile:
                 # print str(dia1) + '__' + str(dia2) + '__' + str(dia3) + '__' + str(dia4) + '__' + str(dia5) + '__' + str(dia6) + '__' + str(dia7)
                 diaTemp = (float(dia1) + 0.8 * float(dia2) + 0.6 * float(dia3) + 0.5 * float(dia4) + 0.4 * float(dia5) + 0.3 * float(dia6)+ 0.2 * float(dia7))/3.8
                 nuevo = False
+                salida.append(row[0] + ' , ' + row[1] + ' , ' + str(diaTemp) + ' , ' + str(dia0))
         else:
             primerosDias.append(row)
             # print primerosDias
