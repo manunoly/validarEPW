@@ -2,23 +2,34 @@ __author__ = 'manuel'
 
 import linecache
 import os
+import shutil
 
-dirFicherosEso = "/home/manuel/andreitaTest/andres/archivosEso/"
+dirFicherosDuplicados = "/media/manuel/DATOS/manuel/simulaciones/ficherosEsoDupli/"
+dirFicherosFaltan = "/media/manuel/DATOS/manuel/simulaciones/ficherosEsoFaltan/"
+dirFicherosEso = "/media/manuel/DATOS/manuel/simulaciones/ficherosEso/"
 dirFicherosCSV = "/media/manuel/DATOS/manuel/simulaciones/salidaEsoTodosCSV/"
+
 resultados = ["Latitude, Longitude, Elevation, HorasDisconfort"]
 duplicados = []
 dirs = os.listdir(dirFicherosEso)
 for fichero in dirs:
+    linecache.cache.clear()
     linea = linecache.getline(dirFicherosEso+fichero,299)
     coordenadas = linea.replace('\n',"").replace(" ","").split(",")
     if coordenadas in duplicados:
-        print("Fichero duplicado " + fichero)
+        print(fichero + " Fichero duplicado")
+        shutil.move(dirFicherosEso + fichero, dirFicherosDuplicados + fichero)
         continue
     else:
         duplicados.append(coordenadas)
 
     dirFicheroCsv = dirFicherosCSV + "z" + fichero.replace("eso","csv")
-    datosCSV = open(dirFicheroCsv,'r')
+    try:
+        datosCSV = open(dirFicheroCsv,'r')
+    except Exception:
+        print(dirFicherosCSV + " Fichero no encontrado")
+        # shutil.copy(dirFicherosEso + fichero, dirFicherosFaltan + fichero)
+        continue
     lineasCSV = enumerate(datosCSV)
     cantHorasDisconfort = 0
     for i, lineaTmp in lineasCSV:
@@ -32,7 +43,7 @@ for fichero in dirs:
                     cantHorasDisconfort = cantHorasDisconfort + 1
             except Exception:
                 print(fichero + "___No se pudo realizar el calculo")
-                pass
+                continue
     resultados.append([coordenadas[2], coordenadas[3], coordenadas[5], cantHorasDisconfort])
     datosCSV.close()
 ficheroEscribir = open("/home/manuel/PycharmProjects/validarEPW/horasDisconfort.csv", "w")
