@@ -1,6 +1,7 @@
 __author__ = 'manuel'
 
 import os
+import csv
 
 dirFicheros = "/home/manuel/andreitaTest/epw/epw"
 
