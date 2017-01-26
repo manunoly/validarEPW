@@ -10,7 +10,7 @@ except OSError:
     pass
 
 dirs = os.listdir(dirFicheros)
-finalData = [['Temp1','Temp2',"Temp3","Temp4","fecha","hora","minuto",]]
+finalData = [['Temp1','Temp2',"Temp3","Temp4","fecha","hora","minuto"]]
 for file in dirs:
     newDir = dirFicheros + "/" +file
     newDirFicheros = os.listdir(newDir)
@@ -23,6 +23,6 @@ for file in dirs:
                 tmpData = [dataList[1],dataList[9],dataList[10],dataList[14],dataList[25][:6],dataList[25][6:8],dataList[25][8:10]]
                 finalData.append(tmpData)
 
-with open(dirFicheros + '/some.csv', 'wb') as f:
+with open(dirFicheros + '/datos2016nuevasOficinas.csv', 'wb') as f:
     writer = csv.writer(f)
     writer.writerows(finalData)
