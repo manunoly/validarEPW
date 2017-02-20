@@ -11,6 +11,7 @@ def testOptimization():
 
     def square(x):
         return (x**2)
+
     def cube(x):
             return (x**3)
 
@@ -18,7 +19,7 @@ def testOptimization():
     value = []
     for r in range(5):
         value.append(map(lambda x: x(r), funcs))
-        print value
+    print value
 
 if __name__ == "__main__":
     a = testOptimization()
