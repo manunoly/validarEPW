@@ -3,7 +3,7 @@ __author__ = 'manuel'
 import os
 import csv
 
-dirFicheros = "/media/manuel/DATOS/manuel/ficherosClimaticos/OficinasIner6/semestreProcesar"
+dirFicheros = "/media/manuel/DATOS/manuel/ficherosClimaticos/OficinasIner6/2017/02"
 try:
     os.remove(dirFicheros + '/some.csv')
 except OSError:
@@ -11,18 +11,18 @@ except OSError:
 
 dirs = os.listdir(dirFicheros)
 finalData = [['Temp1','Temp2',"Temp3","Temp4","fecha","hora","minuto"]]
-for file in dirs:
-    newDir = dirFicheros + "/" +file
-    newDirFicheros = os.listdir(newDir)
-    for newFile in newDirFicheros:
-        data = open(newDir + "/"+ newFile,'r')
-        with open(newDir + "/"+ newFile, 'rb') as csvfile:
-            spamreader = csv.reader(csvfile)
-            for row in spamreader:
-                dataList = row[0].split()
-                tmpData = [dataList[1],dataList[9],dataList[10],dataList[14],dataList[25][:6],dataList[25][6:8],dataList[25][8:10]]
-                finalData.append(tmpData)
+# for file in dirs:
+#     newDir = dirFicheros + "/" +file
+#     newDirFicheros = os.listdir(newDir)
+for newFile in dirs:
+    # data = open(dirFicheros + "/"+ newFile,'r')
+    with open(dirFicheros + "/"+ newFile, 'rb') as csvfile:
+        spamreader = csv.reader(csvfile)
+        for row in spamreader:
+            dataList = row[0].split()
+            tmpData = [dataList[1],dataList[9],dataList[10],dataList[14],dataList[25][:6],dataList[25][6:8],dataList[25][8:10]]
+            finalData.append(tmpData)
 
-with open(dirFicheros + '/datos2016nuevasOficinas.csv', 'wb') as f:
+with open(dirFicheros + '/febrero2017.csv', 'wb') as f:
     writer = csv.writer(f)
     writer.writerows(finalData)
