@@ -2,8 +2,8 @@ __author__ = 'manuel'
 
 import os
 import csv
-
-dirFicheros = "/media/manuel/DATOS/manuel/ficherosClimaticos/OficinasIner6/2017/02"
+mes = '02'
+dirFicheros = "/media/manuel/DATOS/manuel/ficherosClimaticos/OficinasIner6/2018/"+mes
 try:
     os.remove(dirFicheros + '/some.csv')
 except OSError:
@@ -23,6 +23,6 @@ for newFile in dirs:
             tmpData = [dataList[1],dataList[9],dataList[10],dataList[14],dataList[25][:6],dataList[25][6:8],dataList[25][8:10]]
             finalData.append(tmpData)
 
-with open(dirFicheros + '/febrero2017.csv', 'wb') as f:
+with open("/media/manuel/DATOS/manuel/ficherosClimaticos/OficinasIner6/2017/juntos/" + '2018-'+mes+'.csv', 'wb') as f:
     writer = csv.writer(f)
     writer.writerows(finalData)
